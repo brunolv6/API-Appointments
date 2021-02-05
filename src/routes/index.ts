@@ -3,7 +3,7 @@ import appointmentsRouter from './appointments.routes';
 
 const routes = Router();
 
-// use funciona para qualquer rota get, post or other of /appointments
+// definition of router of each route
 routes.use('/appointments', appointmentsRouter);
 
 export default routes;

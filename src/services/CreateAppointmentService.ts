@@ -4,7 +4,7 @@
   - Acesso ao repo
 */
 
-// Exclusivamente responsável pela criação do arquivo neste caso
+// Exclusivamente responsável pela criação do appointment neste caso
 
 import Appointment from "../models/Appointment"
 import AppointmentsRepository from "../repositories/AppointmentsRepository";
@@ -21,7 +21,7 @@ class CreateAppointmentService {
 
   public async execute({ provider, date }: Request): Promise<Appointment> {
 
-    // obtem todos os metodos que realizamos em DB
+    // get all methods of Database
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -33,17 +33,13 @@ class CreateAppointmentService {
       throw Error('This appointmet is already booked');
     }
 
-    // utilizando método create definido como publico na classe appointmentsRepository
-    // para adicionar appointment na variavel appointments privada do objeto que criei
-    // mudanca para envio de objeto ao invés de argumentos porque permite ver o que faltou
-    // e não apenas q faltou algum argumento aleatorio
-    // parameetros nomeados
+    // create entity but not saving
     const appointment = appointmentsRepository.create({
       provider,
       date: appointmentDate
     });
 
-    // só aqui o appointment é adicionado a tabela de Appointments no post gress
+    // save entity on database
     await appointmentsRepository.save(appointment)
 
     return appointment;

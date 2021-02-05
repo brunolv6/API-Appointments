@@ -6,20 +6,15 @@
 */
 
 import { Router } from 'express';
-
 import { parseISO } from 'date-fns';
-
 import { getCustomRepository } from 'typeorm';
 
-import Appointment from '../models/Appointment';
-
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
-
 import CreateAppointmentService from '../services/CreateAppointmentService';
 
 const appointmentsRouter = Router();
 
-// do not need to put /appointments because this route is automatic /appointments
+// route to try to create appointment based on data received as params
 appointmentsRouter.post('/', async (request, response) => {
 
   try {
@@ -28,9 +23,9 @@ appointmentsRouter.post('/', async (request, response) => {
     // data transformation
     const parsedDate = parseISO(date);
 
+    // service to create appointment
     const createAppointment = new CreateAppointmentService();
 
-    // add await because I'm gonna wait a Promise to return
     const appointment = await createAppointment.execute({
       date: parsedDate,
       provider
@@ -42,12 +37,12 @@ appointmentsRouter.post('/', async (request, response) => {
   }
 })
 
+// route to get data of appointments on AppointmentRepository table of Database
 appointmentsRouter.get('/', async (request, response) => {
 
+  // search for data on repository (should this be a separate service? SoC?)
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
-  // sempre que tivermos algum metodo que retorna promise temos que dar um await.
-  // .. para nao disparar a proxima linha antes da promise ser resolvida
   const appointments = await appointmentsRepository.find();
 
   return response.json(appointments);
