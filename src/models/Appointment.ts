@@ -1,6 +1,5 @@
 import { uuid } from 'uuidv4';
-// estrutura de dados que será salvo no banco de dados
-// liberar em tsconfig.json os Decorators (são 2)
+
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 // --     "strictPropertyInitialization": false,  false to not need constructor

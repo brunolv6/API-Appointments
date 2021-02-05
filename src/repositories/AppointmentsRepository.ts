@@ -23,7 +23,7 @@ class AppointmentsRepository extends Repository<Appointment> {
   //   this.appointments = []
   // }
 
-  // -- não mais necessário pq ja eremos nosso metodos no tyoeorm
+  // -- não mais necessário pq ja teremos nosso metodos no tyoeorm
   // public all(): Appointment[]{
   //   return this.appointments;
   // }
