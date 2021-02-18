@@ -13,13 +13,13 @@ import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
 interface Request {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
 class CreateAppointmentService {
 
-  public async execute({ provider, date }: Request): Promise<Appointment> {
+  public async execute({ provider_id, date }: Request): Promise<Appointment> {
 
     // get all methods of Database
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
@@ -35,7 +35,7 @@ class CreateAppointmentService {
 
     // create entity but not saving
     const appointment = appointmentsRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate
     });
 
