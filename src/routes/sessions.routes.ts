@@ -4,21 +4,18 @@ import AuthenticateUserService from '../services/AuthenticateUserService';
 const sessionsRoutes = Router();
 
 sessionsRoutes.post('/', async (request, response) => {
-  try{
-    const { email, password } = request.body;
 
-    const authenticateUser = new AuthenticateUserService();
+  const { email, password } = request.body;
 
-    const { user, token } = await authenticateUser.execute({
-      email,
-      password
-    });
+  const authenticateUser = new AuthenticateUserService();
 
-    // jwt.io verificar coisas do token gerado
-    return response.json({ user, token });
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  const { user, token } = await authenticateUser.execute({
+    email,
+    password
+  });
+
+  // jwt.io verificar coisas do token gerado
+  return response.json({ user, token });
 });
 
 export default sessionsRoutes;

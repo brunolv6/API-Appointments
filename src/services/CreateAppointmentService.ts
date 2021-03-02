@@ -12,6 +12,8 @@ import AppointmentsRepository from "../repositories/AppointmentsRepository";
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 interface Request {
   provider_id: string;
   date: Date;
@@ -30,7 +32,7 @@ class CreateAppointmentService {
     const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
 
     if(findAppointmentInSameDate){
-      throw Error('This appointmet is already booked');
+      throw new AppError('This appointmet is already booked');
     }
 
     // create entity but not saving

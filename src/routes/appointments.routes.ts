@@ -21,24 +21,21 @@ appointmentsRouter.use(ensureAuthenticated);
 // route to try to create appointment based on data received as params
 appointmentsRouter.post('/', async (request, response) => {
 
-  try {
-    const { provider_id, date } = request.body;
+  const { provider_id, date } = request.body;
 
-    // data transformation
-    const parsedDate = parseISO(date);
+  // data transformation
+  const parsedDate = parseISO(date);
 
-    // service to create appointment
-    const createAppointment = new CreateAppointmentService();
+  // service to create appointment
+  const createAppointment = new CreateAppointmentService();
 
-    const appointment = await createAppointment.execute({
-      date: parsedDate,
-      provider_id
-    })
+  const appointment = await createAppointment.execute({
+    date: parsedDate,
+    provider_id
+  })
 
-    return response.json(appointment);
-  } catch (err) {
-    return response.status(400).json({ error: err.message })
-  }
+  return response.json(appointment);
+
 })
 
 // route to get data of appointments on AppointmentRepository table of Database
