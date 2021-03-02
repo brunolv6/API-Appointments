@@ -1,6 +1,6 @@
 // define entity of some table of Database
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import User from './User';
+import User from '../../../../users/infra/typeorm/entities/User';
 
 /*
   Um para um (OneToOne) - um usuário apenas um agendamento

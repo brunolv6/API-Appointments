@@ -1,7 +1,7 @@
 // defining connection between code and database (ORM)
 
 import { EntityRepository, Repository } from 'typeorm';
-import  Appointment  from "../models/Appointment";
+import  Appointment  from "../infra/typeorm/entities/Appointment";
 
 // define which table is this class
 @EntityRepository(Appointment)
