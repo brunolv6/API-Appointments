@@ -6,6 +6,7 @@ import AppError from '../../errors/AppError'
 import routes from './routes';
 import '../database';
 import uploadConfig from '../../config/upload'
+import '../../container';
 
 const app = express();
 
