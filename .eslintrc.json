@@ -18,6 +18,7 @@
       "@typescript-eslint",
       "prettier"
   ],
+  "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "always" }],
   "rules": {
       "import/extensions": [
         "error",

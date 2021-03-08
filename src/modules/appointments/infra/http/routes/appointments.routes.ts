@@ -7,9 +7,8 @@
 
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
 
-import AppointmentsRepository from '../../../repositories/AppointmentsRepository'
+import AppointmentsRepository from '../../typeorm/repositories/AppointmentsRepository'
 import CreateAppointmentService from '../../../services/CreateAppointmentService';
 import ensureAuthenticated from '../../../../users/infra/http/middlewares/ensureAuthenticated';
 
@@ -26,8 +25,10 @@ appointmentsRouter.post('/', async (request, response) => {
   // data transformation
   const parsedDate = parseISO(date);
 
+  const appointmentsRepository = new AppointmentsRepository();
+
   // service to create appointment
-  const createAppointment = new CreateAppointmentService();
+  const createAppointment = new CreateAppointmentService(appointmentsRepository);
 
   const appointment = await createAppointment.execute({
     date: parsedDate,
@@ -39,16 +40,13 @@ appointmentsRouter.post('/', async (request, response) => {
 })
 
 // route to get data of appointments on AppointmentRepository table of Database
-appointmentsRouter.get('/', async (request, response) => {
-  console.log(request.user);
+// appointmentsRouter.get('/', async (request, response) => {
+//   console.log(request.user);
 
-  // search for data on repository (should this be a separate service? SoC?)
-  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+//   const appointments = await appointmentsRepository.find();
 
-  const appointments = await appointmentsRepository.find();
-
-  return response.json(appointments);
-})
+//   return response.json(appointments);
+// })
 
 export default appointmentsRouter;
 
