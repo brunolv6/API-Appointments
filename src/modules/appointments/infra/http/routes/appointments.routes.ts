@@ -1,42 +1,15 @@
-/*
-  Routes
-  - Receive requisition
-  - Call services
-  - Response something
-*/
-
 import { Router } from 'express';
-import { parseISO } from 'date-fns';
-
-import AppointmentsRepository from '../../typeorm/repositories/AppointmentsRepository'
-import CreateAppointmentService from '../../../services/CreateAppointmentService';
 import ensureAuthenticated from '../../../../users/infra/http/middlewares/ensureAuthenticated';
-import { container } from 'tsyringe';
+import AppointmentsController from '../controllers/AppointmentsController';
 
 const appointmentsRouter = Router();
+const appointmentsController = new AppointmentsController()
 
 // para usar as rotas abaixo, este deve pasaar pelo middleware de autenticação
 appointmentsRouter.use(ensureAuthenticated);
 
 // route to try to create appointment based on data received as params
-appointmentsRouter.post('/', async (request, response) => {
-
-  const { provider_id, date } = request.body;
-
-  // data transformation
-  const parsedDate = parseISO(date);
-
-  // service to create appointment
-  const createAppointment = container.resolve(CreateAppointmentService);
-
-  const appointment = await createAppointment.execute({
-    date: parsedDate,
-    provider_id
-  })
-
-  return response.json(appointment);
-
-})
+appointmentsRouter.post('/', appointmentsController.create)
 
 // route to get data of appointments on AppointmentRepository table of Database
 // appointmentsRouter.get('/', async (request, response) => {
@@ -52,4 +25,11 @@ export default appointmentsRouter;
 // SoC - Separation of Concerns
 // DTO - Data transfer Object -> transferir objetos de um arquivo ao outro
 // Desestruturação
+
+/*
+  Routes
+  - Receive requisition
+  - Call services
+  - Response something
+*/
 
