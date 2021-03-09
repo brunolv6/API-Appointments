@@ -4,7 +4,6 @@
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import { getRepository, Repository } from 'typeorm';
-import usersRouter from '../../http/routes/users.routes';
 import  User  from "../entities/User";
 
 class UsersRepository implements IUsersRepository {

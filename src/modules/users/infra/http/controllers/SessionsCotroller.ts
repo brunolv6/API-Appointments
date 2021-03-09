@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import AuthenticateUserService from '../../../services/AuthenticateUserService';
-import UsersRepository from "../../typeorm/repositories/UsersRepository";
 
 export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
